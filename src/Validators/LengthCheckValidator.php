@@ -2,8 +2,7 @@
 
 namespace Pair\Validators;
 
-use _PHPStan_582a9cb8b\Nette\OutOfRangeException;
-use OutOfRangeException as GlobalOutOfRangeException;
+use http\Exception\InvalidArgumentException;
 
 class LengthCheckValidator implements ValidatorInterface
 {
@@ -14,15 +13,9 @@ class LengthCheckValidator implements ValidatorInterface
     public function validate(mixed $subject):bool
     {
         if (strlen($subject) < $this->length) {
-            return false;
-
-        } else {
-            return true;
+            throw new InvalidArgumentException("Input length must be at least $this->length characters");
         }
+        return true;
     }
 
-    public function getErrorMessage(): void
-    {
-        throw new GlobalOutOfRangeException("Input length must be at least $this->length characters");
-    }
 }

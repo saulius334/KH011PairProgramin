@@ -12,11 +12,13 @@ class ValidatorService
     {
         $errors = [];
         foreach ($this->validators as $validator) {
-            $result = $validator->validate($input);
-            if (!$result) {
-                $errors[] = [$validator::class => $validator->getErrorMessage()];
+            try {
+                $validator->validate($input);
+            } catch (\Exception $exception) {
+                $errors[] = [$validator::class => $exception->getMessage()];
             }
         }
         return $errors;
     }
 }
+
