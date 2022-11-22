@@ -2,7 +2,7 @@
 
 namespace Pair\Validators;
 
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 
 class LengthCheckValidator implements ValidatorInterface
 {

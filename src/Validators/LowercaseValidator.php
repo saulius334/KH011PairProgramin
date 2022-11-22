@@ -2,8 +2,7 @@
 
 namespace Pair\Validators;
 
-use _PHPStan_582a9cb8b\Nette\OutOfRangeException;
-use OutOfRangeException as GlobalOutOfRangeException;
+use InvalidArgumentException;
 
 class LowercaseValidator implements ValidatorInterface
 {
@@ -11,13 +10,11 @@ class LowercaseValidator implements ValidatorInterface
     {
     }
 
-    public function validate(mixed $subject):bool
+    public function validate(mixed $subject): bool
     {
-        return ctype_lower($subject);
-    }
-
-    public function getErrorMessage(): void
-    {
-         throw new GlobalOutOfRangeException("Input characters must be lowercase");
+        if (!ctype_lower($subject)) {
+            throw new InvalidArgumentException("Input characters must be lowercase");
+        }
+        return true;
     }
 }

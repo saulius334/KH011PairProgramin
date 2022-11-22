@@ -2,8 +2,7 @@
 
 namespace Pair\Validators;
 
-use _PHPStan_582a9cb8b\Nette\OutOfRangeException;
-use OutOfRangeException as GlobalOutOfRangeException;
+use InvalidArgumentException;
 
 class SymbolValidator implements ValidatorInterface
 {
@@ -11,14 +10,12 @@ class SymbolValidator implements ValidatorInterface
     {
     }
 
-    public function validate(mixed $subject):bool
+    public function validate(mixed $subject): bool
     {
         $result = str_split($subject);
-        return in_array($this->input, $result);
-    }
-
-    public function getErrorMessage(): void
-    {
-         throw new GlobalOutOfRangeException("Input must contain at least one $this->input");
+        if (!in_array($this->input, $result)) {
+            throw new InvalidArgumentException("Input must contain at least one $this->input");
+        }
+        return true;
     }
 }
