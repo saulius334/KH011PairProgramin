@@ -13,7 +13,7 @@ class SymbolValidator implements ValidatorInterface
 
     public function validate(mixed $subject):bool
     {
-        $result = explode('', $subject);
+        $result = str_split($subject);
         return in_array($this->input, $result);
     }
 
